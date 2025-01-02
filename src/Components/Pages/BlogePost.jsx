@@ -1,31 +1,35 @@
-import React from "react";
-import { Link, useNavigate } from "react-router-dom";
+import React, { useEffect, useState } from "react";
+import Header from "../Header";
+import { useLocation, useParams } from "react-router-dom";
+import axios from "axios";
 
-const MyCards = ({ users, inputData }) => {
-  const navigate = useNavigate();
+const BlogePost = () => {
+  const [result, setResult] = useState(null);
+  debugger;
+  const { id } = useParams();
 
-  // const cardHandler = ()=>{
-  //  navigate("/bloge", {state : {id : user.id}})
-  // }
 
-  // console.log("🚀 ~ MyCards ~ inputDatas:", inputData)
+  async function resultData() {
+    try {
+      const response = await axios.get(apiData);
+      console.log(response);
+      setResult(response.data);
+    } catch (error) {
+      console.error(error);
+    }
+  }
+  const apiData = `https://6774e84f92222241481a2d7f.mockapi.io/api/v1/employees/${id}`;
 
-  // const result = users.filter((user)=> user.name === inputDatas)
-
-  const searchQuerry = inputData
-    ? users.filter((user) =>
-        user.name.toLowerCase().includes(inputData.toLowerCase())
-      )
-    : users;
-  // debugger
-
-  // const id = user.id
+  useEffect(() => {
+    resultData();
+  }, [id]);
 
   return (
-    <div className="grid grid-cols-1 gap-4 lg:grid-cols-4 lg:gap-8">
-      {searchQuerry.map((user, index) => (
-        // debugger
-        <div key={index}>
+    <div>
+      <Header />
+   
+      {result ? (
+        <>
           <article className="rounded-xl border border-gray-700 bg-teal-600 p-4">
             <div className="flex items-center gap-4">
               <img
@@ -35,7 +39,9 @@ const MyCards = ({ users, inputData }) => {
               />
 
               <div>
-                <h3 className="text-lg font-medium text-white">{user.name}</h3>
+                <h3 className="text-lg font-medium text-white">
+                  {result.name}
+                </h3>
 
                 <div className="flow-root">
                   <ul className="-m-1 flex flex-wrap">
@@ -66,31 +72,24 @@ const MyCards = ({ users, inputData }) => {
               <li>
                 <div className="block h-full rounded-lg border border-gray-700 p-4 hover:border-pink-600">
                   <strong className="font-medium text-white">
-                    {/* ============================================================================= */}
-                    {/* <Link to={`/bloge/${user.id}`}> */}
-                    <button
-                      onClick={() => navigate(`/bloge/${user.id}`)}
-                      className="group flex items-center justify-between gap-4 rounded-lg border border-indigo-600 bg-[#65BFBE] px-5 py-3 transition-colors hover:bg-transparent focus:outline-none focus:ring"
-                    >
-                      More info
-                    </button>
-                    {/* </Link> */}
-                    {/* =============================================================================== */}
-                    <h3>User id : {user.id}</h3>
-                    {user.status === true ? "Active" : "Resignd"}
+                
+                    <h3>User id : {result.id}</h3>
+                    {result.status === true ? "Active" : "Resignd"}
                   </strong>
 
                   <p className="mt-1 text-xs font-medium text-gray-300">
-                    {user.jobtype}
+                    {result.jobtype}
                   </p>
                 </div>
               </li>
             </ul>
           </article>
-        </div>
-      ))}
+        </>
+      ) : (
+        <p>Employee note found</p>
+      )}
     </div>
   );
 };
 
-export default MyCards;
+export default BlogePost;

@@ -1,4 +1,5 @@
 import React from "react";
+import { Link } from "react-router-dom";
 
 const Header = ({ inputData, setinputData }) => {
   return (
@@ -18,11 +19,53 @@ const Header = ({ inputData, setinputData }) => {
             />
           </svg>
         </a>
+        {/* ??????????????????????????????????????????????????????????????????????????????????????????????????? */}
+
+        <div className="hidden md:block">
+          <nav aria-label="Global">
+            <ul className="flex items-center gap-6 text-sm">
+              <li>
+                <Link
+                  className="text-gray-500 transition hover:text-gray-500/75"
+                  to="/"
+                >
+                  Home
+                </Link>
+              </li>
+
+              <li>
+                <Link
+                  className="text-gray-500 transition hover:text-gray-500/75"
+                  to="/contact"
+                >
+                  Contact
+                </Link>
+              </li>
+
+              <li>
+                <Link
+                  className="text-gray-500 transition hover:text-gray-500/75"
+                  to="/about"
+                >
+                  About
+                </Link>
+              </li>
+              <li>
+                <Link
+                  className="text-gray-500 transition hover:text-gray-500/75"
+                  to="/bloge"
+                >
+                  Bloge Post
+                </Link>
+              </li>
+            </ul>
+          </nav>
+        </div>
+
+        {/* +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ */}
 
         <div className="flex items-center gap-4">
           <div className="sm:flex sm:gap-4">
-
-
             <div className="relative">
               <label htmlFor="Search" className="sr-only">
                 {" "}
@@ -30,8 +73,8 @@ const Header = ({ inputData, setinputData }) => {
               </label>
 
               <input
-              value={inputData}
-              onChange={(e)=> setinputData(e.target.value)}
+                value={inputData}
+                onChange={(e) => setinputData(e.target.value)}
                 type="text"
                 id="Search"
                 placeholder="Search for..."
