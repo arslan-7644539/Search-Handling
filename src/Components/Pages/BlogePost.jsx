@@ -30,7 +30,7 @@ const BlogePost = () => {
    
       {result ? (
         <>
-          <article className="rounded-xl border border-gray-700 bg-teal-600 p-4">
+          <article className="rounded-xl border border-gray-700 bg-teal-600 p-4 w-[25%]">
             <div className="flex items-center gap-4">
               <img
                 alt=""
